@@ -18,7 +18,7 @@ const BASS_GAIN = 1;
 const BPM = 130/2;
 
 //BANK
-const DRUM_BANK = "RolandTr808";
+const DRUM_BANK = "rolandtr808";
 
 // On off your main pattern for live
 const DRUMS_ON = 1;
@@ -30,8 +30,8 @@ setcpm(BPM/4);
 const drums = stack(
 sound("[- - - -] [- sd:1 - -] [- - - -] [- sd:1 - -]"),
 sound("[hh hh hh*4 hh] [hh hh hh*4 hh*2] [hh hh hh hh] [hh hh hh hh]"),
-sound("[bd:2 - - -] [- - - -] [bd:2 bd:2 - -] [bd:2 - - -]"), 
-).speed(2).bank(DRUM_BANK).gain(DRUMS_ON ? DRUMS_GAIN : 0)._punchcard().color(DRUMS_COLOR);
+sound("[bd:2 - - -] [- - - -] [bd:2 bd:2 - -] [bd:2 - - -]") 
+).bank(DRUM_BANK).gain(DRUMS_ON ? DRUMS_GAIN : 0)._punchcard().color(DRUMS_COLOR);
 
 const melody = stack(
 n("<[5 3] [3 1] [0 2]>").scale("C4:minor").sound("piano"),
@@ -57,5 +57,5 @@ arrange(
    [4, melody],
    [8, stack(melody, drums, bass)],
    [8, stack(melody, drums, bass)],
-   [4, melody]
+  [2, melody]
 )._pianoroll()
