@@ -56,5 +56,6 @@ arrange(
    [8, stack(melody, drums, bass)],
    [4, melody],
    [8, stack(melody, drums, bass)],
-   [8, stack(melody, drums, bass)]
+   [8, stack(melody, drums, bass)],
+   [4, melody]
 )._pianoroll()

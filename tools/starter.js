@@ -45,7 +45,7 @@ $: bass
 
 
 /** 
-const main = arrange(
+arrange(
     
 )._pianoroll();
 */
