@@ -10,9 +10,9 @@ const MELODY_COLOR = "blue";
 const BASS_COLOR = "magenta";
 
 // GAINS
-const DRUMS_GAIN = 1;
-const MELODY_GAIN = 1;
-const BASS_GAIN = 1;
+let DRUMS_GAIN = slider(1.12,0, 2);
+let MELODY_GAIN = slider(0.488,0, 2);
+let BASS_GAIN = slider(0.58, 0, 2);
 
 // BPM
 const BPM = 130/2;
@@ -28,15 +28,16 @@ const BASS_ON = 1;
 setcpm(BPM/4);
 
 const drums = stack(
-sound("[- - - -] [- sd:1 - -] [- - - -] [- sd:1 - -]"),
-sound("[hh hh hh*4 hh] [hh hh hh*4 hh*2] [hh hh hh hh] [hh hh hh hh]"),
-sound("[bd:2 - - -] [- - - -] [bd:2 bd:2 - -] [bd:2 - - -]") 
-).bank(DRUM_BANK).gain(DRUMS_ON ? DRUMS_GAIN : 0)._punchcard().color(DRUMS_COLOR);
+sound("[- - - -] [- sd:1 - -] [- - - -] [- sd:1 - -]").distort(slider(0.5, 0, 1.5, 0.1)),
+sound("[hh hh hh*4 hh] [hh hh hh*4 hh*2] [hh hh hh hh] [hh hh hh hh]").postgain(slider(0.464,0, 2)),
+sound("[bd:2 - - -] [- - - -] [bd:2 bd:2 - -] [bd:2 - - -]").distort(slider(1.1, 0, 1.5, 0.1)) 
+).bank(DRUM_BANK)
+  .gain(DRUMS_ON ? DRUMS_GAIN : 0)._punchcard().color(DRUMS_COLOR);
 
 const melody = stack(
 n("<[5 3] [3 1] [0 2]>").scale("C4:minor").sound("piano"),
 n("[0 1], [4 5]").scale("C3:minor").sound("piano"),
-).gain(MELODY_ON ? MELODY_GAIN : 0)._punchcard().color(MELODY_COLOR);
+).gain(MELODY_ON ? MELODY_GAIN : 0).room(slider(2, 0, 4,0.5))._punchcard().color(MELODY_COLOR);
 
 const bass = stack(
 n("0 1 4 5").scale("C1:minor").sound("gm_fretless_bass").lpf(600).distort(1).slow(2)
