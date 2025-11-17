@@ -48,7 +48,7 @@ const drums = stack(
 const melody = stack(
   s("tri*8")                // RAPIDE sans être agressif (8 notes / cycle)
     .n("0 2 3 7 3 2 0 7")   // petite boucle mélodique sympa
-    .shape(0.2)             // arrondi, pas d’aigus dégueulasses
+    .shape(0.4)             // arrondi, pas d’aigus dégueulasses
     .gain(0.6)              
     .degradeBy(0.15)        
 )
