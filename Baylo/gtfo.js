@@ -1,32 +1,68 @@
-const dbank = "tr909";
+/**
+@title gtfo
+@by Baylo
+*/
 
-// Pattern global de batterie
+// Colors
+const DRUMS_COLOR = "red";
+const MELODY_COLOR = "blue";
+const BASS_COLOR = "magenta";
+
+// GAINS
+const DRUMS_GAIN = 1;
+const MELODY_GAIN = 1;
+const BASS_GAIN = 1;
+
+// BPM réel
+const BPM = 120; // A ajuster 
+setcpm(BPM/4); 
+
+// BANK
+const DRUM_BANK = "tr909";
+
+// On/off switches
+const DRUMS_ON = 1;
+const MELODY_ON = 1;
+const BASS_ON = 1;
+
+
+// ================= DRUMS =================
 const drums = stack(
   // Hi-hat simple
-  s("hh*8").gain(0.2),
+  s("hh*8").gain(.2),
 
-  // Kick euclidien
-  s("bd(<5 7>,16)").bank(dbank),
+  // Kick pattern euclidien (5 coups sur 16)
+  s("bd(<5 7>,16)").bank(DRUM_BANK),
 
-  // Snare sur 4 et 12
-  s("sd").bank(dbank).beat("4,12", 16),
+  // Snare pattern sur 4 et 12
+  s("sd").bank(DRUM_BANK).beat("4,12", 16),
 
-  // Mid-snare sur 2 et 6
-  s("md").bank(dbank).beat("2,6", 16),
+  // Snare mid sur 2 et 6
+  s("md").bank(DRUM_BANK).beat("2,6", 16)
+)
+  .gain(DRUMS_ON ? DRUMS_GAIN : 4)
+  ._punchcard()
+  .color(DRUMS_COLOR);
 
-  // Nouveau : petit clap sur 8 pour casser la routine
-  s("cp").bank(dbank).beat("8", 16)
-);
+// ================= MELODY (VIDE POUR L’INSTANT) =================
+const melody = stack(
+  s("~")
+)
+  .gain(MELODY_ON ? MELODY_GAIN : 0)
+  ._punchcard()
+  .color(MELODY_COLOR);
 
-// Basse simple qui colle au kick euclidien
-const bass = s("sub*4")
-  .n("0 0 -3 0")    // pattern ultra simple, mineur
-  .gain(0.6)
-  .slow(2);         // on l’étire un peu pour pas marcher sur les drums
+// ================= BASS (VIDE POUR L’INSTANT) =================
+const bass = stack(
+  s("~")
+)
+  .gain(BASS_ON ? BASS_GAIN : 0)
+  ._punchcard()
+  .color(BASS_COLOR);
 
-$: drums;   
-$: bass;
+// ================= PLAY =================
+$: drums
+$: melody
+$: bass
 
-// On joue tout le kit d'un coup
-$: drums._punchcard();
 
