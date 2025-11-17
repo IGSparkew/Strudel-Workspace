@@ -29,7 +29,7 @@ const BASS_ON = 1;
 // ================= DRUMS (TON SON EXACT) =================
 const drums = stack(
   // Hi-hat simple
-  s("hh*4").gain(.2), // 4 au lieu de 8
+  s("hh*8").gain(.15).shape(0.2), // 4 au lieu de 8
 
   // Kick pattern euclidien (5 coups sur 16)
   s("bd(<5 7>,16)").bank(DRUM_BANK),
@@ -40,7 +40,7 @@ const drums = stack(
   // Snare mid sur 2 et 6
   s("md").bank(DRUM_BANK).beat("2,6", 16)
 )
-  .gain(DRUMS_ON ? 0.25 : 0)
+  .gain(DRUMS_ON ? 0.12 : 0)
   ._punchcard()
   .color(DRUMS_COLOR);
 
@@ -49,28 +49,29 @@ const melody = stack(
   s("tri*8")                // RAPIDE sans être agressif (8 notes / cycle)
     .n("0 2 3 7 3 2 0 7")   // petite boucle mélodique sympa
     .shape(0.4)             // arrondi, pas d’aigus dégueulasses
-    .gain(0.6)              
-    .degradeBy(0.15)        
+    .gain(0.6)              // volume clean
+    .degradeBy(0.15)        // un peu d’aération
 )
   .gain(MELODY_ON ? 1.4 : 0)
   ._punchcard()
   .color(MELODY_COLOR);
 
-
-// ================= BASS (VIDE POUR L’INSTANT) =================
+// ================= BASS =================
 const bass = stack(
-  s("saw*2")
-    .n("-12 -11 < -12 -10 >")  // slide léger
-    .gain(0.9)
-    .shape(0.5)
+  s("saw*8")
+    .n("2 2 4 5 4 2 2 5")   
+    .shape(0.15)            
+    .gain(0.45)             
 )
-  .gain(BASS_ON ? 1.3 : 0)
+  .gain(BASS_ON ? 0.9 : 0) 
   ._punchcard()
   .color(BASS_COLOR);
+
 
 // ================= PLAY =================
 $: drums
 $: melody
 $: bass
+
 
 
