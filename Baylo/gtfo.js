@@ -14,7 +14,7 @@ const MELODY_GAIN = 1;
 const BASS_GAIN = 1;
 
 // BPM réel
-const BPM = 120; // A ajuster 
+const BPM = 120; // A ajuster (800 Si tu veux t'éclater les tympans avec les drums) - Trap ?
 setcpm(BPM/4); 
 
 // BANK
@@ -44,13 +44,19 @@ const drums = stack(
   ._punchcard()
   .color(DRUMS_COLOR);
 
-// ================= MELODY (VIDE POUR L’INSTANT) =================
+// ================= MELODY =================
 const melody = stack(
-  s("~")
+  s("pluck*4")                 // un peu plus rapide
+    .n("0 2 3 7")              // arpège simple
+    .slow(2)                   // tempo doux
+    .shape(0.4)                // son arrondi
+    .gain(0.6)
+    .degradeBy(0.3)
 )
   .gain(MELODY_ON ? MELODY_GAIN : 0)
   ._punchcard()
   .color(MELODY_COLOR);
+
 
 // ================= BASS (VIDE POUR L’INSTANT) =================
 const bass = stack(
