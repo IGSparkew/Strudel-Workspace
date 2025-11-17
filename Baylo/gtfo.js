@@ -14,7 +14,7 @@ const MELODY_GAIN = 1;
 const BASS_GAIN = 1;
 
 // BPM réel
-const BPM = 120; // A ajuster (800 Si tu veux t'éclater les tympans avec les drums) - Trap ?
+const BPM = 120; 
 setcpm(BPM/4); 
 
 // BANK
@@ -26,7 +26,7 @@ const MELODY_ON = 1;
 const BASS_ON = 1;
 
 
-// ================= DRUMS =================
+// ================= DRUMS (TON SON EXACT) =================
 const drums = stack(
   // Hi-hat simple
   s("hh*8").gain(.2),
@@ -40,7 +40,7 @@ const drums = stack(
   // Snare mid sur 2 et 6
   s("md").bank(DRUM_BANK).beat("2,6", 16)
 )
-  .gain(DRUMS_ON ? DRUMS_GAIN : 4)
+  .gain(DRUMS_ON ? 0.4 : 0) 
   ._punchcard()
   .color(DRUMS_COLOR);
 
@@ -53,16 +53,18 @@ const melody = stack(
     .gain(0.6)
     .degradeBy(0.3)
 )
-  .gain(MELODY_ON ? MELODY_GAIN : 0)
+  .gain(MELODY_ON ? 1.2 : 0)
   ._punchcard()
   .color(MELODY_COLOR);
 
-
 // ================= BASS (VIDE POUR L’INSTANT) =================
 const bass = stack(
-  s("~")
+  s("saw*2")
+    .n("-12 -11 < -12 -10 >")  // slide léger
+    .gain(0.9)
+    .shape(0.5)
 )
-  .gain(BASS_ON ? BASS_GAIN : 0)
+  .gain(BASS_ON ? 1.3 : 0)
   ._punchcard()
   .color(BASS_COLOR);
 
