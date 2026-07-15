@@ -1,0 +1,24 @@
+setcps(0.5);
+const CLIP1_GAIN = 0.74;
+const CLIP1_ON = 1;
+const CLIP1_BANK = "RolandDDR30";
+const CLIP1_PAN = 0.47;
+const clip1 = stack(s("bd ~ bd ~ bd ~ bd ~")).gain(CLIP1_ON ? CLIP1_GAIN : 0).bank(CLIP1_BANK).pan(CLIP1_PAN).duckorbit(3).duckdepth(0.42).duckonset(0.24).duckattack(0.11).distort(1.6).distortvol(0.44);
+const CLIP2_GAIN = 0.85;
+const CLIP2_ON = 1;
+const CLIP2_BANK = "RolandDDR30";
+const CLIP2_PAN = 0.43;
+const clip2 = stack(s("~ ~ sd ~ ~ sd ~ ~")).gain(CLIP2_ON ? CLIP2_GAIN : 0).bank(CLIP2_BANK).pan(CLIP2_PAN).orbit(2);
+const CLIP3_GAIN = 0.7;
+const CLIP3_ON = 1;
+const CLIP3_BANK = "RolandJD990";
+const CLIP3_PAN = 0.64;
+const clip3 = stack(s("hh hh hh hh hh hh hh hh")).gain(CLIP3_ON ? CLIP3_GAIN : 0).bank(CLIP3_BANK).pan(CLIP3_PAN);
+const CLIP4_GAIN = 0.53;
+const CLIP4_ON = 1;
+const CLIP4_PAN = 0.5;
+const clip4 = stack(note("1 4 5 [3 3] 5")).scale("C:minor").sound("piano").gain(CLIP4_ON ? CLIP4_GAIN : 0).pan(CLIP4_PAN).orbit(3).hpf(132.14).room(0.53).roomsize(4.57);
+$: clip1
+$: clip2
+$: clip3
+$: clip4
